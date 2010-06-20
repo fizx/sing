@@ -9,7 +9,11 @@ import java.util.List;
 import net.contentobjects.jnotify.JNotify;
 import net.contentobjects.jnotify.JNotifyException;
 
+import com.martiansoftware.nailgun.NGContext;
+
 public class Server {
+	public static Server active = null;
+
 	private String root;
 	private Compiler compiler;
 	private FileFilter dirFilter = new FileFilter() {
@@ -27,6 +31,7 @@ public class Server {
 	private int watchId;
 
 	public Server(String path) {
+		root = path;
 		compiler = new Compiler();
 	}
 
@@ -50,6 +55,25 @@ public class Server {
 		return list;
 	}
 
+	public static void nailMain(NGContext context) {
+		String[] args = context.getArgs();
+		if (args.length == 0) {
+			System.err.println("Please specify a subcommand: ");
+			System.err.println("  compile FILE_NAME");
+			System.err.println("  spec    CLASS_NAME");
+			System.err.println("  specall");
+			System.exit(1);
+		}
+		String command = args[0];
+		if (command.equals("compile")) {
+			active.compiler.compile(new File(args[1]));
+		} else {
+			System.err.println("Subcommand not recognized.");
+			System.exit(1);
+		}
+		System.out.println();
+	}
+
 	public static void main(String args[]) throws Exception {
 		if (args.length < 1) {
 			System.err.println("Please provide a path to watch!");
@@ -57,7 +81,7 @@ public class Server {
 		}
 		Server server = new Server(args[0]);
 		server.start();
-		System.out.println("Server running!");
-		Thread.currentThread().join();
+		Server.active = server;
+		com.martiansoftware.nailgun.NGServer.main(new String[0]);
 	}
 }

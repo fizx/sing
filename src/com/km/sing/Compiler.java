@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import scala.collection.jcl.Conversions;
 import scala.tools.nsc.Interpreter;
 import scala.tools.nsc.Settings;
 import scala.tools.nsc.io.PlainFile;
@@ -30,18 +29,20 @@ public class Compiler {
 	}
 
 	public void compile(final List<File> files) {
+		System.out.println("Compiling " + files.size() + " files...");
 		if (interpreter.compileSources(convert(files))) {
 			System.out.println("OK");
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private scala.List<SourceFile> convert(List<File> files) {
 		ArrayList<SourceFile> sourceFiles = new ArrayList<SourceFile>();
 		for (File file : files) {
 			sourceFiles.add(new BatchSourceFile(new PlainFile(file)));
 		}
-		return (scala.List<SourceFile>) Conversions.convertList(sourceFiles);
+		return scala.List$.MODULE$
+				.apply(new scala.collection.jcl.ArrayList<SourceFile>(
+						sourceFiles));
 	}
 
 }

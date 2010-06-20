@@ -1,0 +1,2 @@
+#!/bin/sh
+"`dirname $0`/ng" com.km.sing.Server "$@"
