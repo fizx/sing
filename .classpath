@@ -2,5 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-vfs-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jnotify-0.93.jar"/>
+	<classpathentry kind="lib" path="lib/nailgun-0.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/scala-compiler.jar"/>
+	<classpathentry kind="lib" path="lib/scala-dbc.jar"/>
+	<classpathentry kind="lib" path="lib/scala-library.jar"/>
+	<classpathentry kind="lib" path="lib/scala-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
